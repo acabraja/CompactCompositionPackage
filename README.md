@@ -7,4 +7,4 @@ Description:
 ====================
 We have a box which has 3 dimension and a lot of small package. Two dimension of box are fixed and one is infinite, packages only fixed dimensions.  We must stacking   packages in box so that packages take a minimum of spaces in box.
 
-For solving this NP problem I using some heuristic methods like genetic alghoritm and some algorithms for clustering.  
+For solving this NP problem we using some heuristic methods like genetic algorithm and some algorithms for clustering.  
