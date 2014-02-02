@@ -21,8 +21,6 @@ def dist(x,y):
 
 
 def klasteriranje(podaci,n):
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
     dim = len(podaci)/6
     klasteri = []
     for i in range(5):
@@ -40,25 +38,7 @@ def klasteriranje(podaci,n):
             index = pr.index(min(pr))
             novi_klasteri[index].append(p)
         klasteri = novi_klasteri
-    c = ['r','black','b','y','c','gray']
-    g = 0;
-    for klas in klasteri:
-        xcoord = [i[1] for i in klas]
-        ycoord = [i[2] for i in klas]
-        zcoord = [i[3] for i in klas]
-        ax.scatter(xcoord, ycoord, zcoord, c=c[g])
-        g = g + 1
-    plt.show()
-    k=0
-    print"--------------------------"
-    s=""
-    print len(klasteri[5])
-    for i in klasteri:
-        s=s+str(centroidi[k])
-        s=s+";"
-        for j in i:
-            s=s+str(j[1:])+";"
-    #print s
+    return [klasteri,centroidi]
 
 def ucitaj(fileName):
     file = open(fileName,'r')
@@ -72,16 +52,25 @@ def ucitaj(fileName):
 
 #ucitaj('subset_1k_presents.csv')
 
-def main():
+def K_clustering():
     # lista[lista(id,dim1,dim2,dim3)]
     podaci = ucitaj('subset_1k_presents.csv')
-    klasteriranje(podaci,10)
-    #matrica = np.zeros((1000,1000,), dtype=np.int)
-    
+    [klasteri,centroidi] = klasteriranje(podaci,10)
+    return [klasteri,centroidi]
 
-
-    # treba minimizirati maximum
-    #maximum = matrica.max()
+def main():
+    [klasteri,r] = K_clustering()
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    c = ['r','black','b','y','c','gray']
+    g = 0;
+    for klas in klasteri:
+        xcoord = [i[1] for i in klas]
+        ycoord = [i[2] for i in klas]
+        zcoord = [i[3] for i in klas]
+        ax.scatter(xcoord, ycoord, zcoord, c=c[g])
+        g = g + 1
+    plt.show()
 
 if __name__ == '__main__':
     main()
