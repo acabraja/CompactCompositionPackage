@@ -1,6 +1,11 @@
-#import numpy as np
+import numpy as np
 from random import shuffle
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
+'''
+Find avarage value in array of numbers
+'''
 def centroid(klaster):
     centroid = []
     for x in xrange(1,len(klaster[0])):
@@ -8,11 +13,16 @@ def centroid(klaster):
         centroid.append(sum(a)/len(klaster))
     return centroid
 
+'''
+Euclid distanc between two points in Euclid spaces
+'''
 def dist(x,y):   
     return (x[0] - y[0])**2 + (x[1] - y[1])**2 + (x[2] - y[2])**2
 
+
 def klasteriranje(podaci,n):
-    #podaci = shuffle(podaci)
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
     dim = len(podaci)/6
     klasteri = []
     for i in range(5):
@@ -30,7 +40,15 @@ def klasteriranje(podaci,n):
             index = pr.index(min(pr))
             novi_klasteri[index].append(p)
         klasteri = novi_klasteri
-    print centroidi
+    c = ['r','black','b','y','c','gray']
+    g = 0;
+    for klas in klasteri:
+        xcoord = [i[1] for i in klas]
+        ycoord = [i[2] for i in klas]
+        zcoord = [i[3] for i in klas]
+        ax.scatter(xcoord, ycoord, zcoord, c=c[g])
+        g = g + 1
+    plt.show()
     k=0
     print"--------------------------"
     s=""
@@ -40,7 +58,7 @@ def klasteriranje(podaci,n):
         s=s+";"
         for j in i:
             s=s+str(j[1:])+";"
-   # print s
+    #print s
 
 def ucitaj(fileName):
     file = open(fileName,'r')
